@@ -701,6 +701,14 @@ def load_demo_image(class_name, index=0):
             img = cv2.imread(os.path.join(d, files[index]), cv2.IMREAD_GRAYSCALE)
             if img is not None:
                 return cv2.resize(img, (256, 256))
+    samples_dir = os.path.join(PROJECT_DIR, 'samples')
+    fallback = {'NORMAL': 'normal.jpg', 'PNEUMONIA': 'pneumonia.jpg'}
+    if class_name in fallback:
+        path = os.path.join(samples_dir, fallback[class_name])
+        if os.path.exists(path):
+            img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+            if img is not None:
+                return cv2.resize(img, (256, 256))
     return None
 
 
